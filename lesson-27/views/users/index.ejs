@@ -1,109 +1,68 @@
-<!-- views/users/index.ejs -->
+<!-- layout.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<!--
-  Listing 18.8 (p. 268)
-  index.js에서의 모든 사용자 리스팅
--->
+    <!-- @TODO: -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Final Project | <%= title %></title>
+    <!-- @TODO: title태그를 완성하십시오 -->
 
-<main class="">
-  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-    <div class="pt-5 pb-5">
-      <h1>Users</h1>
-      <p>Here are all the users on our site.</p>
+    <meta name="author" content="Aaron" />
+    <!-- @TODO: 자기 이름을 작성하십시오 -->
 
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Pic</th>
-            <th>Username</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Subscribed?</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% users.forEach(function(user, i) { %>
-          <tr>
-            <td><%= i+1 %></td>
-            <td>
-              <a href="/users/<%= user.id %>">
-                <figure class="user-img">
-                  <img src="<%= user.profileImg ||
-                  "https://via.placeholder.com/150" %>" alt="Placeholder image"
-                  class="rounded-circle" />
-                </figure> </a
-              ><!-- HTML에서 사용자 이금과 ID 삽입 -->
-            </td>
-            <td>
-              <a href="/users/<%= user.id %>"><%= user.username %></a
-              ><!-- HTML에서 사용자 이금과 ID 삽입 -->
-            </td>
-            <!-- 
-              Listing 19.6 (p. 284)
-              name 데이터 업데이트
-            -->
-            <td><%= user.fullName %></td>
-            <td><%= user.email %></td>
-            <% if (user.subscribedAccount) { %>
-            <!-- 구독 계정이 있는 경우 -->
-            <td><%= user.subscribedAccount %> ✅</td>
-            <% } else { %>
-            <!-- 구독 계정이 없는 경우 -->
-            <td>❌</td>
-            <% } %>
-            <td>
-              <!-- 
-                Listing 20.2 (p. 291)
-                사용자 편집을 위한 테이블 수정
-              -->
-              <a
-                class="btn btn-sm btn-outline-primary"
-                role="button"
-                href="/users/<%= user._id %>/edit"
-                >✏️ Edit</a
-              ><!-- 사용자 ID를 edit 태그 링크에 삽입 -->
+    <!-- @TODO: CSS 파일에 대한 link테그를 완성하십시오 -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <!-- Compiled: https://codepen.io/fionnachan/pen/EvaqOB -->
+    <!-- <link rel="stylesheet" href="css/confetti.css" /> -->
+    <link
+      rel="stylesheet"
+      media="(max-width: 768px)"
+      href="/css/style.small.css"
+    />
 
-              <!-- 
-                Listing 20.8 (p. 297) 
-                사용자 삭제 링크
-              -->
-              <a
-                class="btn btn-sm btn-outline-danger"
-                role="button"
-                href="/users/<%= user._id %>/delete?_method=DELETE"
-                onclick="return confirm('Are you sure you want to delete this record?')"
-                >🗑️ Delete</a
-              ><!-- 인덱스 페이지에서 delete 액션으로의 링크 추가 -->
+    <!-- @TODO: -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="/css/aaronkr.css" /> -->
+  </head>
+  <body>
+    <%- include('_partials/_header') %>
+    <!--
+      Listing 22.4 (p. 329)
+      layout.ejs에서 플래시 메시지 추가
+    -->
+    <%- include('_partials/_flashMsg') %> <%- body %> <%-
+    include('_partials/_footer') %>
 
-              <!--
-                노트: onclick="return confirm('Are you sure you want to delete this record?')"의
-                추가로 좀 더 안전한 장치를 추가할 수 있다.
-              -->
-            </td>
-          </tr>
-          <% }); %>
-        </tbody>
-      </table>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.7.1.js"></script>
+    <!-- update jQuery (remove slim) -->
 
-      <div class="mt-5 text-center">
-        <a href="/users/new" class="btn btn-primary">Add New User</a>
-        <a
-          href="/"
-          class="btn ut-red disabled"
-          role="button"
-          aria-disabled="true"
-          >Delete All Users</a
-        >
-        <a
-          href="/"
-          class="btn btn-secondary disabled"
-          role="button"
-          aria-disabled="true"
-          >Link Subscribers</a
-        >
-      </div>
-    </div>
-  </div>
-</main>
+    <!-- Popper Development version -->
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+
+    <!-- Popper Production version
+    <script src="https://unpkg.com/@popperjs/core@2"></script> -->
+
+    <!-- Bootstrap -->
+    <!-- <script src="/js/bootstrap.bundle.min.js"></script> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- @TODO: JS 파일에 대한 script테그를 완성하십시오 -->
+    <script src="/js/functions.js"></script>
+
+    <!-- @TODO Lesson 26: bookFunctions.js 추가하기 -->
+    <script src="/js/joinFunctions.js"></script>
+  </body>
+
+  <!--
+    [노트] 레이아웃 파일은 방문하는 모든 페이지상에서 렌더링된다.
+    한 번 < %- body % >의 전후로 HTML 콘텐츠를 추가해보라. 
+    모든 페이지에 추가 내용이 반영될 것이다.
+--></html>
